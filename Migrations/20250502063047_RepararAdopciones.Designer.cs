@@ -2,6 +2,7 @@
 using AdopcionMascotas.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AdopcionMascotas.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250502063047_RepararAdopciones")]
+    partial class RepararAdopciones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,7 @@ namespace AdopcionMascotas.Migrations
                     b.HasIndex("MascotaId")
                         .IsUnique();
 
-                    b.ToTable("Adopciones", (string)null);
+                    b.ToTable("Adopciones");
                 });
 
             modelBuilder.Entity("AdopcionMascotas.Modelos.Adoptante", b =>
@@ -63,7 +66,7 @@ namespace AdopcionMascotas.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Adoptantes", (string)null);
+                    b.ToTable("Adoptantes");
                 });
 
             modelBuilder.Entity("AdopcionMascotas.Modelos.Mascota", b =>
@@ -91,7 +94,7 @@ namespace AdopcionMascotas.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Mascotas", (string)null);
+                    b.ToTable("Mascotas");
                 });
 
             modelBuilder.Entity("AdopcionMascotas.Modelos.Adopcion", b =>

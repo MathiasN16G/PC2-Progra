@@ -18,5 +18,7 @@ namespace AdopcionMascotas.Modelos
 
         [ForeignKey("AdoptanteId")]
         public Adoptante Adoptante { get; set; }
+        public DateTime FechaCreacion { get; set; } = DateTime.Now;
+
     }
 }
