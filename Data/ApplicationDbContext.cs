@@ -15,24 +15,27 @@ namespace AdopcionMascotas.Data
         public DbSet<Adopcion> Adopciones { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+{
+    base.OnModelCreating(modelBuilder);
 
-            // Una mascota solo puede tener una adopción
-            modelBuilder.Entity<Adopcion>()
-                .HasIndex(a => a.MascotaId)
-                .IsUnique();
+    // Asegurar que una mascota solo tenga una adopción
+    modelBuilder.Entity<Adopcion>()
+        .HasIndex(a => a.MascotaId)
+        .IsUnique();
 
-            // Relaciones
-            modelBuilder.Entity<Adopcion>()
-                .HasOne(a => a.Mascota)
-                .WithOne(m => m.Adopcion)
-                .HasForeignKey<Adopcion>(a => a.MascotaId);
+    // Relación 1:1 desde Adopcion hacia Mascota
+    modelBuilder.Entity<Adopcion>()
+        .HasOne(a => a.Mascota)
+        .WithMany()
+        .HasForeignKey(a => a.MascotaId)
+        .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Adopcion>()
-                .HasOne(a => a.Adoptante)
-                .WithMany(ad => ad.Adopciones)
-                .HasForeignKey(a => a.AdoptanteId);
-        }
+    // Relación 1:N desde Adoptante hacia Adopciones
+    modelBuilder.Entity<Adopcion>()
+        .HasOne(a => a.Adoptante)
+        .WithMany(ad => ad.Adopciones)
+        .HasForeignKey(a => a.AdoptanteId);
+}
+
     }
 }
