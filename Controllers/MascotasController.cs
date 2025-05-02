@@ -26,9 +26,12 @@ namespace AdopcionMascotas.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Forzar estado "Disponible" por defecto
+                mascota.EstadoAdopcion = "Disponible";
+
                 _context.Mascotas.Add(mascota);
                 _context.SaveChanges();
-                return RedirectToAction("Index", "Home"); // Puedes redirigir a otra vista luego
+                return RedirectToAction("Index", "Home"); // Puedes cambiar esto a una vista de listado si lo deseas
             }
 
             return View(mascota);
