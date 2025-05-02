@@ -29,22 +29,36 @@ namespace AdopcionMascotas.Controllers
         }
 
         // POST: Adopciones/Create
-       [HttpPost]
+      [HttpPost]
 [ValidateAntiForgeryToken]
 public IActionResult Create(Adopcion adopcion)
 {
-    if (ModelState.IsValid)
+    if (!ModelState.IsValid)
     {
-        var mascota = _context.Mascotas.Find(adopcion.MascotaId);
-        if (mascota != null)
+        Console.WriteLine("ModelState inválido");
+        foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
         {
-            mascota.EstadoAdopcion = "Disponible";
-            _context.Adopciones.Add(adopcion);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            Console.WriteLine($"Error: {error.ErrorMessage}");
         }
     }
 
+    var mascota = _context.Mascotas.FirstOrDefault(m => m.Id == adopcion.MascotaId);
+
+    if (mascota == null)
+    {
+        Console.WriteLine($"Mascota con ID {adopcion.MascotaId} no encontrada.");
+    }
+
+    if (mascota != null && ModelState.IsValid)
+    {
+        mascota.EstadoAdopcion = "Adoptado";
+        _context.Adopciones.Add(adopcion);
+        _context.SaveChanges();
+        Console.WriteLine("Adopción guardada correctamente.");
+        return RedirectToAction("Index");
+    }
+
+    // En caso de error, volver a cargar combos
     ViewData["MascotaId"] = new SelectList(
         _context.Mascotas.Where(m => m.EstadoAdopcion == "Disponible"),
         "Id", "Nombre", adopcion.MascotaId);
@@ -54,6 +68,7 @@ public IActionResult Create(Adopcion adopcion)
 
     return View(adopcion);
 }
+
 
 
         // GET: Adopciones
