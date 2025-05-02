@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//esta funcionalidad de la pregunta 4 ya la realice en la pregunta 1 (coloco esto para poder subir commit)
 
 var app = builder.Build();
 
