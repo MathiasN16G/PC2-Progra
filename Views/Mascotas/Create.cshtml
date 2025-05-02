@@ -11,22 +11,26 @@
         <label>Nombre</label>
         <input asp-for="Nombre" class="form-control" required />
     </div>
+
     <div class="form-group">
         <label>Edad</label>
         <input asp-for="Edad" type="number" class="form-control" min="0" required />
     </div>
+
     <div class="form-group">
         <label>Tipo</label>
         <input asp-for="Tipo" class="form-control" required />
     </div>
+
     <div class="form-group">
         <label>Estado de Adopción</label>
         <select asp-for="EstadoAdopcion" class="form-control" required>
-            <option value="">Seleccione una opción</option>
-            <option value="disponible">Disponible</option>
-            <option value="adoptada">Adoptada</option>
+            <option value="">-- Seleccione estado --</option>
+            <option value="Disponible">Disponible</option>
+            <option value="Adoptado">Adoptado</option>
         </select>
     </div>
+
     <button type="submit" class="btn-azul">Registrar</button>
 </form>
 
