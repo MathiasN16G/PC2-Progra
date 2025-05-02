@@ -29,31 +29,32 @@ namespace AdopcionMascotas.Controllers
         }
 
         // POST: Adopciones/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Adopcion adopcion)
+       [HttpPost]
+[ValidateAntiForgeryToken]
+public IActionResult Create(Adopcion adopcion)
+{
+    if (ModelState.IsValid)
+    {
+        var mascota = _context.Mascotas.Find(adopcion.MascotaId);
+        if (mascota != null)
         {
-            if (ModelState.IsValid)
-            {
-                var mascota = _context.Mascotas.Find(adopcion.MascotaId);
-                if (mascota != null)
-                {
-                    mascota.EstadoAdopcion = "Adoptado";
-                    _context.Adopciones.Add(adopcion);
-                    _context.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-
-            ViewData["MascotaId"] = new SelectList(
-                _context.Mascotas.Where(m => m.EstadoAdopcion == "Disponible"),
-                "Id", "Nombre", adopcion.MascotaId);
-
-            ViewData["AdoptanteId"] = new SelectList(
-                _context.Adoptantes, "Id", "Nombre", adopcion.AdoptanteId);
-
-            return View(adopcion);
+            mascota.EstadoAdopcion = "Disponible";
+            _context.Adopciones.Add(adopcion);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
+    }
+
+    ViewData["MascotaId"] = new SelectList(
+        _context.Mascotas.Where(m => m.EstadoAdopcion == "Disponible"),
+        "Id", "Nombre", adopcion.MascotaId);
+
+    ViewData["AdoptanteId"] = new SelectList(
+        _context.Adoptantes, "Id", "Nombre", adopcion.AdoptanteId);
+
+    return View(adopcion);
+}
+
 
         // GET: Adopciones
         public IActionResult Index()
