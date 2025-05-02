@@ -1,7 +1,7 @@
 services:
   - type: web
     name: adopcion-mascotas
-    env: dotnet
+    runtime: dotnet
     branch: deploy/render
     buildCommand: dotnet build
     startCommand: dotnet AdopcionMascotas.dll
