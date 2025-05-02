@@ -8,14 +8,14 @@
 
 <form asp-action="Create" method="post" class="formulario-adopcion">
     <div class="form-group">
-        <label>Mascota</label>
+        <label for="MascotaId">Mascota</label>
         <select asp-for="MascotaId" class="form-control" asp-items="ViewBag.MascotaId" required>
             <option value="">-- Seleccione una mascota --</option>
         </select>
     </div>
 
     <div class="form-group">
-        <label>Adoptante</label>
+        <label for="AdoptanteId">Adoptante</label>
         <select asp-for="AdoptanteId" class="form-control" asp-items="ViewBag.AdoptanteId" required>
             <option value="">-- Seleccione un adoptante --</option>
         </select>
