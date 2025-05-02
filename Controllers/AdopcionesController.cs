@@ -18,58 +18,44 @@ namespace AdopcionMascotas.Controllers
         // GET: Adopciones/Create
         public IActionResult Create()
         {
-            ViewData["MascotaId"] = new SelectList(
-                _context.Mascotas.Where(m => m.EstadoAdopcion == "Disponible"),
-                "Id", "Nombre");
-
-            ViewData["AdoptanteId"] = new SelectList(
-                _context.Adoptantes, "Id", "Nombre");
-
+            CargarCombos();
             return View();
         }
 
         // POST: Adopciones/Create
-      [HttpPost]
-[ValidateAntiForgeryToken]
-public IActionResult Create(Adopcion adopcion)
-{
-    if (!ModelState.IsValid)
-    {
-        Console.WriteLine("ModelState inválido");
-        foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Adopcion adopcion)
         {
-            Console.WriteLine($"Error: {error.ErrorMessage}");
+            if (!ModelState.IsValid)
+            {
+                Console.WriteLine("ModelState inválido");
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Error: {error.ErrorMessage}");
+                }
+
+                CargarCombos(adopcion);
+                return View(adopcion);
+            }
+
+            var mascota = _context.Mascotas.FirstOrDefault(m => m.Id == adopcion.MascotaId);
+
+            if (mascota == null)
+            {
+                Console.WriteLine($"Mascota con ID {adopcion.MascotaId} no encontrada.");
+                ModelState.AddModelError("MascotaId", "La mascota seleccionada no existe.");
+                CargarCombos(adopcion);
+                return View(adopcion);
+            }
+
+            mascota.EstadoAdopcion = "Adoptado";
+            _context.Adopciones.Add(adopcion);
+            _context.SaveChanges();
+
+            Console.WriteLine("Adopción guardada correctamente.");
+            return RedirectToAction("Index");
         }
-    }
-
-    var mascota = _context.Mascotas.FirstOrDefault(m => m.Id == adopcion.MascotaId);
-
-    if (mascota == null)
-    {
-        Console.WriteLine($"Mascota con ID {adopcion.MascotaId} no encontrada.");
-    }
-
-    if (mascota != null && ModelState.IsValid)
-    {
-        mascota.EstadoAdopcion = "Adoptado";
-        _context.Adopciones.Add(adopcion);
-        _context.SaveChanges();
-        Console.WriteLine("Adopción guardada correctamente.");
-        return RedirectToAction("Index");
-    }
-
-    // En caso de error, volver a cargar combos
-    ViewData["MascotaId"] = new SelectList(
-        _context.Mascotas.Where(m => m.EstadoAdopcion == "Disponible"),
-        "Id", "Nombre", adopcion.MascotaId);
-
-    ViewData["AdoptanteId"] = new SelectList(
-        _context.Adoptantes, "Id", "Nombre", adopcion.AdoptanteId);
-
-    return View(adopcion);
-}
-
-
 
         // GET: Adopciones
         public IActionResult Index()
@@ -81,5 +67,21 @@ public IActionResult Create(Adopcion adopcion)
 
             return View(adopciones);
         }
+
+        // Método reutilizable para cargar combos
+        private void CargarCombos(Adopcion adopcion = null)
+{
+    ViewData["MascotaId"] = new SelectList(
+        _context.Mascotas
+            .Where(m => m.EstadoAdopcion == "Disponible")
+            .ToList(),
+        "Id", "Nombre",
+        adopcion?.MascotaId);
+
+    ViewData["AdoptanteId"] = new SelectList(
+        _context.Adoptantes.ToList(),
+        "Id", "Nombre",
+        adopcion?.AdoptanteId);
+}
     }
 }

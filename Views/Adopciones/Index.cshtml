@@ -23,17 +23,24 @@ else
             </tr>
         </thead>
         <tbody>
-        @foreach (var adopcion in Model)
-        {
-            <tr>
-                <td>@adopcion.Mascota?.Nombre ?? "Sin asignar"</td>
-                <td>@adopcion.Adoptante?.Nombre ?? "Sin asignar"</td>
-                <td>@adopcion.Mascota?.EstadoAdopcion ?? "N/A"</td>
-            </tr>
-        }
+      @foreach (var adopcion in Model)
+{
+    <tr>
+        <td>@adopcion.Mascota.Nombre </td>
+        <td>@adopcion.Adoptante.Nombre </td>
+        <td>@adopcion.Mascota.EstadoAdopcion </td>
+    </tr>
+}
+
         </tbody>
     </table>
 }
+<p class="text-center mt-3">
+    <a class="btn btn-info" asp-controller="Adopciones" asp-action="Index">
+        Ver listado de adopciones
+    </a>
+</p>
+
 
 @section Styles {
     <style>
