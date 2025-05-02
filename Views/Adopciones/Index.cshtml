@@ -1,27 +1,55 @@
 @model IEnumerable<AdopcionMascotas.Modelos.Adopcion>
 
 @{
-    ViewData["Title"] = "Lista de Adopciones";
+    ViewData["Title"] = "Listado de Adopciones";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h2 class="titulo">Listado de Adopciones</h2>
 
-<table class="table">
+<table class="table table-striped formulario-adopcion">
     <thead>
         <tr>
             <th>Mascota</th>
             <th>Adoptante</th>
-            <th>Estado de Adopción</th>
+            <th>Estado</th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
+    @foreach (var adopcion in Model)
     {
         <tr>
-            <td>@item.Mascota.Nombre</td>
-            <td>@item.Adoptante.Nombre</td>
-            <td>@item.Mascota.EstadoAdopcion</td>
+            <td>@adopcion.Mascota.Nombre</td>
+            <td>@adopcion.Adoptante.Nombre</td>
+            <td>@adopcion.Mascota.EstadoAdopcion</td>
         </tr>
     }
     </tbody>
 </table>
+
+@section Styles {
+    <style>
+        body {
+            background-color: #e0f7fa;
+        }
+
+        .titulo {
+            color: #01579b;
+            text-align: center;
+            margin: 30px 0 20px;
+        }
+
+        .formulario-adopcion {
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background-color: #0288d1;
+            color: white;
+        }
+    </style>
+}
