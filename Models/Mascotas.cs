@@ -10,7 +10,7 @@ namespace AdopcionMascotas.Modelos
         public string Tipo { get; set; }
         public string EstadoAdopcion { get; set; }
 
-        // Relación 1 a 1: una mascota solo puede estar en una adopción
-        public Adopcion? Adopcion { get; set; }
+    
+       
     }
 }
