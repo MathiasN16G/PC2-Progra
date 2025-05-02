@@ -1,0 +1,27 @@
+@model IEnumerable<AdopcionMascotas.Modelos.Adopcion>
+
+@{
+    ViewData["Title"] = "Lista de Adopciones";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mascota</th>
+            <th>Adoptante</th>
+            <th>Estado de Adopción</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Mascota.Nombre</td>
+            <td>@item.Adoptante.Nombre</td>
+            <td>@item.Mascota.EstadoAdopcion</td>
+        </tr>
+    }
+    </tbody>
+</table>
