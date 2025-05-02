@@ -28,7 +28,7 @@ namespace AdopcionMascotas.Controllers
             {
                 _context.Mascotas.Add(mascota);
                 _context.SaveChanges();
-                return RedirectToAction("Index", "Home"); // Puedes redirigir a otra vista luego
+                return RedirectToAction("Index", "Home"); // o redirige a un listado de mascotas si tienes uno
             }
 
             return View(mascota);
