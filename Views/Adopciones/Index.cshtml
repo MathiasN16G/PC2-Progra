@@ -6,30 +6,40 @@
 
 <h2 class="titulo">Listado de Adopciones</h2>
 
-<table class="table table-striped formulario-adopcion">
-    <thead>
-        <tr>
-            <th>Mascota</th>
-            <th>Adoptante</th>
-            <th>Estado</th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var adopcion in Model)
-    {
-        <tr>
-            <td>@adopcion.Mascota.Nombre</td>
-            <td>@adopcion.Adoptante.Nombre</td>
-            <td>@adopcion.Mascota.EstadoAdopcion</td>
-        </tr>
-    }
-    </tbody>
-</table>
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">
+        No hay adopciones registradas todavía.
+    </div>
+}
+else
+{
+    <table class="table table-striped formulario-adopcion">
+        <thead>
+            <tr>
+                <th>Mascota</th>
+                <th>Adoptante</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var adopcion in Model)
+        {
+            <tr>
+                <td>@adopcion.Mascota?.Nombre</td>
+                <td>@adopcion.Adoptante?.Nombre</td>
+                <td>@adopcion.Mascota?.EstadoAdopcion</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
 
 @section Styles {
     <style>
         body {
             background-color: #e0f7fa;
+            font-family: Arial, sans-serif;
         }
 
         .titulo {
@@ -50,6 +60,11 @@
         th {
             background-color: #0288d1;
             color: white;
+        }
+
+        .alert {
+            max-width: 600px;
+            margin: 30px auto;
         }
     </style>
 }
