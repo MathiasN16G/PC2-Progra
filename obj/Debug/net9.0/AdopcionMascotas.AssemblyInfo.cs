@@ -13,7 +13,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdopcionMascotas")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ffccb93354da22fba152a2efee7c10f175c05a7d")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5faa4de05d8048418c510bedbffbdd75d15846f")]
+>>>>>>> feature/asociar-listar-adopciones
 [assembly: System.Reflection.AssemblyProductAttribute("AdopcionMascotas")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdopcionMascotas")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
