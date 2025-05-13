@@ -1,0 +1,111 @@
+@model AdopcionMascotas.Modelos.Adopcion
+
+@{
+    ViewData["Title"] = "Registrar Adopción";
+}
+
+<h2 class="titulo">Registrar Adopción</h2>
+
+@if (!ViewData.ModelState.IsValid && ViewData.ModelState.Count > 0)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+<form asp-action="Create" method="post" class="formulario-adopcion">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label asp-for="MascotaId">Mascota</label>
+        <select asp-for="MascotaId" asp-items="ViewBag.MascotaId" class="form-control" required>
+            <option value="">-- Seleccione una mascota --</option>
+        </select>
+        <span asp-validation-for="MascotaId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AdoptanteId">Adoptante</label>
+        <select asp-for="AdoptanteId" asp-items="ViewBag.AdoptanteId" class="form-control" required>
+            <option value="">-- Seleccione un adoptante --</option>
+        </select>
+        <span asp-validation-for="AdoptanteId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn-azul">Registrar Adopción</button>
+</form>
+
+
+<p class="text-center mt-3">
+    <a class="btn btn-info" asp-controller="Adopciones" asp-action="Index">
+        Ver listado de adopciones
+    </a>
+</p>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+@section Styles {
+    <style>
+        body {
+            background-color: #e0f7fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .titulo {
+            color: #01579b;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .formulario-adopcion {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #90caf9;
+            border-radius: 5px;
+        }
+
+        .btn-azul {
+            background-color: #0288d1;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn-azul:hover {
+            background-color: #0277bd;
+        }
+
+        .alert-danger {
+            max-width: 500px;
+            margin: 20px auto;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+}

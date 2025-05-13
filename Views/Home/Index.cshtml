@@ -3,6 +3,24 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Wenas</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <p>
+        <a class="btn btn-primary" asp-controller="Mascotas" asp-action="Create">
+            Registrar una nueva mascota
+        </a>
+    </p>
+
+    <p>
+        <a class="btn btn-success" asp-controller="Adopciones" asp-action="Create">
+            Registrar una adopción
+        </a>
+    </p>
+    <p>
+    <a class="btn btn-secondary" asp-controller="Adoptantes" asp-action="Create">
+        Registrar nuevo adoptante
+    </a>
+</p>
+
 </div>
