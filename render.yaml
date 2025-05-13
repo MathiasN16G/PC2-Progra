@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: adopcion-mascotas
+    runtime: dotnet
+    branch: deploy/render
+    buildCommand: dotnet build
+    startCommand: dotnet AdopcionMascotas.dll
+    autoDeploy: true
+    envVars:
+      - key: ConnectionStrings__DefaultConnection
+        value: Host=dpg-d09vta1r0fns73du9te0-a.oregon-postgres.render.com;Port=5432;Database=adopcion;Username=adopcion_user;Password=HOsqpWsmzrzbqEdhAdxrDQ6FQocUayIs;SSL Mode=Require;Trust Server Certificate=true
