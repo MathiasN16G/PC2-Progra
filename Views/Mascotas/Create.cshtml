@@ -1,0 +1,85 @@
+@model AdopcionMascotas.Modelos.Mascota
+
+@{
+    ViewData["Title"] = "Registrar Mascota";
+}
+
+<h2 class="titulo">Registrar Mascota</h2>
+
+<form asp-action="Create" method="post" class="formulario-mascota">
+    <div class="form-group">
+        <label>Nombre</label>
+        <input asp-for="Nombre" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Edad</label>
+        <input asp-for="Edad" type="number" class="form-control" min="0" required />
+    </div>
+
+    <div class="form-group">
+        <label>Tipo</label>
+        <input asp-for="Tipo" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Estado de Adopción</label>
+        <select asp-for="EstadoAdopcion" class="form-control" required>
+            <option value="">-- Seleccione estado --</option>
+            <option value="Disponible">Disponible</option>
+            <option value="Adoptado">Adoptado</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn-azul">Registrar</button>
+</form>
+
+@section Styles {
+    <style>
+        body {
+            background-color: #e0f7fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .titulo {
+            color: #01579b;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .formulario-mascota {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #90caf9;
+            border-radius: 5px;
+        }
+
+        .btn-azul {
+            background-color: #0288d1;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn-azul:hover {
+            background-color: #0277bd;
+        }
+    </style>
+}
